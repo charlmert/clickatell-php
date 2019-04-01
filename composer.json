@@ -1,12 +1,14 @@
 {
-    "name": "arcturial/clickatell-v2",
+    "name": "charlmert/clickatell-php",
     "type": "library",
-    "description": "Standalone PHP library to integrate with the Clickatell SMS gateway",
+    "description": "Standalone PHP library to integrate with the older Clickatell SMS gateway: https://api.clickatell.com/http/sendmsg",
     "homepage": "https://arcturial.github.com",
     "license": "GNU General Public License",
     "authors": [
         {
             "name": "Chris Brand"
+        },{
+            "name": "Charl Mert"
         }
     ],
     "require": {
