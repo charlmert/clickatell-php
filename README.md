@@ -19,7 +19,9 @@ $clickatell = new \Clickatell\Rest('token');
 
 // Full list of support parameters can be found at https://www.clickatell.com/developers/api-documentation/rest-api-request-parameters/
 try {
-    $result = $clickatell->sendMessage(['to' => ['27111111111'], 'content' => 'Message Content']);
+    // This will load the correct version of the rest api depending on the base url (or just the domain name)
+    $handle = \Clickatell\Rest::load($auth_token, 'https://api.clickatell.com/rest');
+    $result = $handle->sendMessage(['to' => ['27111111111'], 'content' => 'Message Content']);
 
     foreach ($result['messages'] as $message) {
         var_dump($message);
