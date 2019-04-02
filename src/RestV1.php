@@ -142,7 +142,7 @@ class RestV1
     public function sendMessage(array $message)
     {
         $response = $this->curl('message', $message);
-        return $response;
+        return $response['data']['message'];
     }
 
     /**
