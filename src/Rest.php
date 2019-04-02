@@ -7,7 +7,13 @@ class Rest
      * API base URL
      * @var string
      */
-    const API_URL = 'https://platform.clickatell.com';
+    const API_URL = 'https://api.clickatell.com/rest';
+
+    /**
+     * API base URL
+     * @var string
+     */
+    const API_VERSION = '1';
 
     /**
      * @var string
@@ -23,7 +29,7 @@ class Rest
      * The CURL agent identifier
      * @var string
      */
-    const AGENT = 'ClickatellV2/1.0';
+    const AGENT = 'ClickatellV1.0';
 
     /**
      * Excepted HTTP statuses
@@ -69,7 +75,7 @@ class Rest
                 $error = $result;
             }
 
-            throw new \Clickatell\ClickatellException($error);
+            throw new \Clickatell\ClickatellException(var_export($error, true));
         } else {
             return json_decode($result, true);
         }
@@ -89,9 +95,10 @@ class Rest
         $data = $data ? (array) $data : $data;
 
         $headers = [
+            'X-Version: 1',
             'Content-Type: application/json',
             'Accept: application/json',
-            'Authorization: ' . $this->apiToken
+            'Authorization: bearer ' . $this->apiToken
         ];
 
         // This is the clickatell endpoint. It doesn't really change so
@@ -128,8 +135,8 @@ class Rest
      */
     public function sendMessage(array $message)
     {
-        $response = $this->curl('messages', $message);
-        return $response['messages'];
+        $response = $this->curl('message', $message);
+        return $response;
     }
 
     /**
