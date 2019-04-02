@@ -7,7 +7,9 @@ namespace Clickatell;
  * Docs: https://archive.clickatell.com/developers/api-docs/rest-overview-of-api-features/
  */
 
-class RestV2
+use \Clickatell\Exeptions\ClickatellException;
+
+class RestV2 extends ApiBase
 {
     /**
      * API base URL
@@ -75,7 +77,7 @@ class RestV2
                 $error = $result;
             }
 
-            throw new \Clickatell\ClickatellException($error);
+            throw new ClickatellException($error);
         } else {
             return json_decode($result, true);
         }
@@ -203,5 +205,16 @@ class RestV2
         }
 
         return;
+    }
+
+    /**
+     * This method receives messages after a callback url has been landed on by the provider.
+     * The parameters passed back should be handled by the driver.
+     *
+     * @param array $params The parameters received by the listener.
+     *
+     */
+    public function listen(array $params) {
+
     }
 }

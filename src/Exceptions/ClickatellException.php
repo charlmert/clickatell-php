@@ -1,5 +1,5 @@
 <?php
-namespace Clickatell;
+namespace Clickatell\Exceptions;
 
 class ClickatellException extends \Exception
 {
