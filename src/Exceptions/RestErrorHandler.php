@@ -4,8 +4,6 @@ namespace Clickatell\Exceptions;
 
 class RestErrorHandler
 {
-    // Rest Error Codes: https://archive.clickatell.com/developers/api-docs/list-of-error-codes-rest/
-
     /**
      * Excepted HTTP statuses
      * @var string
@@ -14,16 +12,65 @@ class RestErrorHandler
 
     /**
      * Excepted message status statuses
+     * https://archive.clickatell.com/developers/api-docs/message-status-codes/
+     *
      * @var array
      */
     const ERROR_CODES_MESSAGE_STATUS = [
+        '001' => [
+            'short' => 'Message unknown',
+            'long' => 'The message ID is incorrect, not found or reporting is delayed. Note that a message can only be queried up to six days after it has been submitted to our gateway.'
+        ],
+        '002' => [
+            'short' => 'Message queued',
+            'long' => 'The message could not be delivered and has been queued for attempted redelivery.'
+        ],
+        '003' => [
+            'short' => 'Delivered to gateway',
+            'long' => 'Delivered to the upstream gateway or network (delivered to the recipient).'
+        ],
+        '004' => [
+            'short' => 'Received by recipient',
+            'long' => 'Confirmation of receipt on the handset of the recipient.'
+        ],
+        '005' => [
+            'short' => 'Error with message',
+            'long' => 'There was an error with the message, probably caused by the content of the message itself.'
+        ],
+        '006' => [
+            'short' => 'User cancelled message delivery',
+            'long' => 'The message was terminated by a user (stop message command).'
+        ],
         '007' => [
             'short' => 'Error delivering message',
+            'long' => 'An error occurred delivering the message to the handset.'
+        ],
+        '009' => [
+            'short' => 'Routing error',
+            'long' => 'An error occurred while attempting to route the message.'
+        ],
+        '010' => [
+            'short' => 'Message expired',
+            'long' => 'Message expired before we were able to deliver it to the upstream gateway. No charge applies.'
+        ],
+        '011' => [
+            'short' => 'Message scheduled for later delivery',
+            'long' => 'Message has been scheduled for delivery at a later time (delayed delivery feature).'
+        ],
+        '012' => [
+            'short' => 'Out of credit',
+            'long' => 'The message cannot be delivered due to insufficient credits.'
+        ],
+        '013' => [
+            'short' => 'Clickatell cancelled message delivery',
+            'long' => 'The message was terminated by our staff.'
         ],
     ];
 
     /**
      * Excepted API error statuses
+     * https://archive.clickatell.com/developers/api-docs/list-of-error-codes-rest/
+     *
      * @var array
      */
     const ERROR_CODES = [
