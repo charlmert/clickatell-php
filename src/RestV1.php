@@ -73,11 +73,12 @@ class RestV1 extends ApiBase
      * Abstract CURL usage.
      *
      * @param string $uri     The endpoint
-     * @param string $data    Array of parameters
+     * @param array $data    Array of parameters
+     * @param string $customRequest The custom request if any like 'DELETE', 'PUT'
      *
      * @return Decoder
      */
-    protected function curl($uri, $data)
+    protected function curl($uri, $data, $customRequest = null)
     {
         // Force data object to array
         $data = $data ? (array) $data : $data;
@@ -103,8 +104,11 @@ class RestV1 extends ApiBase
         curl_setopt($ch, CURLOPT_USERAGENT, static::AGENT . ' curl/' . $curlInfo['version'] . ' PHP/' . phpversion());
 
         // Specify the raw post data
-        if ($data) {
+        if ($data && $customRequest == null) {
             curl_setopt($ch, CURLOPT_POST, 1);
+            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        } else if ($data && $customRequest != null) {
+            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $customRequest);
             curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
         }
 
@@ -148,6 +152,20 @@ class RestV1 extends ApiBase
     public function getAccountBalance()
     {
         $response = $this->curl('account/balance/', []);
+        return $response;
+    }
+
+    /**
+     * Stop a future dated message from being delivered.
+     * @see https://archive.clickatell.com/developers/api-docs/stop-message-rest/
+     *
+     * @param array $message The message parameters
+     *
+     * @return array
+     */
+    public function stopMessage(string $uuid)
+    {
+        $response = $this->curl('message/' . $uuid, [], 'DELETE');
         return $response;
     }
 
