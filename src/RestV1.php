@@ -141,6 +141,17 @@ class RestV1 extends ApiBase
     }
 
     /**
+     * @see https://www.clickatell.com/developers/api-documentation/rest-api-send-message/
+     *
+     * @return array
+     */
+    public function getAccountBalance()
+    {
+        $response = $this->curl('account/balance/', []);
+        return $response;
+    }
+
+    /**
      * @see https://www.clickatell.com/developers/api-documentation/rest-api-status-callback/
      *
      * @param callable $callback The function to trigger with desired parameters
