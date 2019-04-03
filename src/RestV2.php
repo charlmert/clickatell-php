@@ -141,6 +141,19 @@ class RestV2 extends ApiBase
     }
 
     /**
+     * @see https://www.clickatell.com/developers/api-documentation/rest-api-send-message/
+     *
+     * @param array $message The message parameters
+     *
+     * @return array
+     */
+    public function getMessageStatus(string $uuid)
+    {
+        $response = $this->curl('message/' . $uuid, []);
+        return $response;
+    }
+
+    /**
      * @see https://www.clickatell.com/developers/api-documentation/rest-api-status-callback/
      *
      * @param callable $callback The function to trigger with desired parameters
