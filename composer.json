@@ -1,7 +1,7 @@
 {
-    "name": "charlmert/clickatell-php",
+    "name": "slvrcld/clickatell-php",
     "type": "library",
-    "description": "Standalone PHP library to integrate with the older Clickatell SMS gateway: https://api.clickatell.com/http/sendmsg",
+    "description": "Standalone PHP library to integrate with the Clickatell SMS gateway",
     "homepage": "https://arcturial.github.com",
     "license": "GNU General Public License",
     "authors": [
