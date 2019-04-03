@@ -8,6 +8,7 @@ namespace Clickatell;
  */
 
 use \Clickatell\Exeptions\ClickatellException;
+use \Clickatell\Exceptions\RestErrorHandler;
 
 class RestV1 extends ApiBase
 {
@@ -40,12 +41,6 @@ class RestV1 extends ApiBase
     const AGENT = 'ClickatellV1.0';
 
     /**
-     * Excepted HTTP statuses
-     * @var string
-     */
-    const ACCEPTED_CODES = '200, 201, 202';
-
-    /**
      * @var string
      */
     private $apiToken = '';
@@ -71,22 +66,7 @@ class RestV1 extends ApiBase
      */
     protected function handle($result, $httpCode)
     {
-        // Check for non-OK statuses
-        $codes = explode(",", static::ACCEPTED_CODES);
-
-        if (!in_array($httpCode, $codes)) {
-            // Decode JSON if possible, if this can't be decoded...something fatal went wrong
-            // and we will just return the entire body as an exception.
-            if ($error = json_decode($result, true)) {
-                $error = $error['error'];
-            } else {
-                $error = $result;
-            }
-
-            throw new ClickatellException(var_export($error, true));
-        } else {
-            return json_decode($result, true);
-        }
+        return RestErrorHandler::handle($result, $httpCode);
     }
 
     /**
